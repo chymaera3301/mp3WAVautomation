@@ -1,0 +1,21 @@
+import pydub
+import wave
+from pydub import AudioSegment
+Audio1 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio1%'.mp3")
+Audio1 = Audio1.set_channels(1)
+Audio1.export("C:\\Apps\\Audio\\WAV\\Audio1.wav", format="wav")
+
+Audio2 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio2%'.mp3")
+Audio2 = Audio2.set_channels(1)
+Audio2.export("C:\\Apps\\Audio\\WAV\\Audio2.wav", format="wav")
+
+Audio3 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio3%'.mp3")
+Audio3 = Audio3.set_channels(1)
+Audio3.export("C:\\Apps\\Audio\\WAV\\Audio3.wav", format="wav")
+
+Audio4 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio4%'.mp3")
+Audio4 = Audio4.set_channels(1)
+Audio4.export("C:\\Apps\\Audio\\WAV\\Audio4.wav", format="wav")
+
+infiles = ['Audio1.wav', 'Audio2.wav', 'Audio3.wav', 'Audio4.wav']
+outfiles = 'C:\\Apps\\Audio\\WAV\\onHold.wav'
