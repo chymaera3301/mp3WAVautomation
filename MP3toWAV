@@ -1,54 +1,25 @@
-import pydub
-import wave
 from pydub import AudioSegment
 
-if '%Audio4%' != None:
-    Audio1 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio1%'.mp3")
-    Audio1 = Audio1.set_channels(1)
-    Audio1.export('C:\\Apps\\Audio\\WAV\\Audio1.wav', format='wav')
+ls=['%Audio1%','%Audio2%','%Audio3%']
 
-    Audio2 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio2%'.mp3")
-    Audio2 = Audio2.set_channels(1)
-    Audio2.export('C:\\Apps\\Audio\\WAV\\Audio2.wav', format='wav')
-
-    Audio3 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio3%'.mp3")
-    Audio3 = Audio3.set_channels(1)
-    Audio3.export('C:\\Apps\\Audio\\WAV\\Audio3.wav', format='wav')
-
-    Audio4 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio4%'.mp3")
-    Audio4 = Audio4.set_channels(1)
-    Audio4.export('C:\\Apps\\Audio\\WAV\\Audio4.wav', format='wav')
-
-    infiles = ['Audio1.wav', 'Audio2.wav', 'Audio3.wav', 'Audio4.wav']
-    outfiles = 'C:\\Apps\\Audio\\WAV\\onHold.wav'
-elif '%Audio3%' != None:
-    Audio1 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio1%'.mp3")
-    Audio1 = Audio1.set_channels(1)
-    Audio1.export('C:\\Apps\\Audio\\WAV\\Audio1.wav', format='wav')
-
-    Audio2 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio2%'.mp3")
-    Audio2 = Audio2.set_channels(1)
-    Audio2.export("C:\\Apps\\Audio\\WAV\\Audio2.wav", format='wav')
-
-    Audio3 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio3%'.mp3")
-    Audio3 = Audio3.set_channels(1)
-    Audio3.export('C:\\Apps\\Audio\\WAV\\Audio3.wav', format='wav')
-    
+for index in range(len(ls)):
+    if ls[index] != '' and ls[index].endswith('.mp3'):
+        file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
+        aud=AudioSegment.from_mp3(f"C:\\*******\\{index}")
+        aud=aud.set_channels(1)
+        aud.export(f"C:\\*******\\{file}".format(file), format='wav')
+    elif ls[index] != '' and ls[index].endswith('.wav'):
+        file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
+        aud=AudioSegment.from_wav(f"C:\\*******\\{index}")
+        aud=aud.set_channels(1)
+        aud.export(f"C:\\*******\\{file}", format='wav')
+        
+if '%Audio3%' != None:
     infiles = ['Audio1.wav', 'Audio2.wav', 'Audio3.wav']
-    outfiles = 'C:\\Apps\\Audio\\WAV\\onHold.wav'
+    outfiles = "C:\\*******\\'%campaignName%'"
 elif '%Audio2%' != None:
-    Audio1 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio1%'.mp3")
-    Audio1 = Audio1.set_channels(1)
-    Audio1.export('C:\\Apps\\Audio\\WAV\\Audio1.wav', format='wav')
-
-    Audio2 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio2%'.mp3")
-    Audio2 = Audio2.set_channels(1)
-    Audio2.export('C:\\Apps\\Audio\\WAV\\Audio2.wav', format='wav')
-    
     infiles = ['Audio1.wav', 'Audio2.wav']
-    outfiles = 'C:\\Apps\\Audio\\WAV\\onHold.wav'
+    outfiles = "C:\\*******\\'%campaignName%'"
 else:
-    Audio1 = AudioSegment.from_mp3("C:\\Apps\\Audio\\MP3\\'%Audio1%'.mp3")
-    Audio1 = Audio1.set_channels(1)
-    Audio1.export('C:\\Apps\\Audio\\WAV\\onHold.wav', format='wav')
-    
+    infiles = ['Audio1.wav']
+    outfiles = "C:\\*******\\'%campaignName%'"
