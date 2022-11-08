@@ -23,10 +23,10 @@ aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
 
 if count == 3:
     combined_sounds=aud1+aud2+aud3
-    combined_sounds.export(f"C:\\*******", format="wav")
+    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
 elif count == 2:
     combined_sounds=aud1+aud2
-    combined_sounds.export(f"C:\\*******", format="wav")
+    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
 else:
     combined_sounds=aud1
-    combined_sounds.export(f"C:\\*******", format="wav")
+    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
