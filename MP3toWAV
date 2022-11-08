@@ -1,25 +1,27 @@
 from pydub import AudioSegment
+import ffmpeg
 
 ls=['%Audio1%','%Audio2%','%Audio3%']
 
 for index in range(len(ls)):
     if ls[index] != '' and ls[index].endswith('.mp3'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
-        aud=AudioSegment.from_mp3(f"C:\\*******\\{index}")
+        aud=AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
-        aud.export(f"C:\\*******\\{file}".format(file), format='wav')
+        aud.export(f"C:\\*******\\{file}", format='wav')
     elif ls[index] != '' and ls[index].endswith('.wav'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
-        aud=AudioSegment.from_wav(f"C:\\*******\\{index}")
+        aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
         
 if '%Audio3%' != None:
     infiles = ['Audio1.wav', 'Audio2.wav', 'Audio3.wav']
-    outfiles = "C:\\*******\\'%campaignName%'"
+    outfiles = "C:\\*******\\testing.wav"
 elif '%Audio2%' != None:
     infiles = ['Audio1.wav', 'Audio2.wav']
-    outfiles = "C:\\*******\\'%campaignName%'"
+    outfiles = "C:\\*******\\testing.wav"
 else:
     infiles = ['Audio1.wav']
-    outfiles = "C:\\*******\\'%campaignName%'"
+    outfiles = "C:\\*******\\testing.wav"
+
