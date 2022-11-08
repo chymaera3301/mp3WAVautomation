@@ -1,5 +1,6 @@
 from pydub import AudioSegment
 import ffmpeg
+import os
 
 ls=['%Audio1%','%Audio2%','%Audio3%']
 count=0
@@ -16,17 +17,18 @@ for index in range(len(ls)):
         aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
+    os.remove(f"C:\\*******\\{ls[index]}")
 
 aud1=AudioSegment.from_wav("C:\\*******\\Audio1.wav")
 aud2=AudioSegment.from_wav("C:\\*******\\Audio2.wav")
 aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
 
 if count == 3:
-    combined_sounds=aud1+aud2+aud3
-    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outilfe=aud1+aud2+aud3
+    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
 elif count == 2:
-    combined_sounds=aud1+aud2
-    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outilfe=aud1+aud2
+    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
 else:
-    combined_sounds=aud1
-    combined_sounds.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outilfe=aud1
+    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
