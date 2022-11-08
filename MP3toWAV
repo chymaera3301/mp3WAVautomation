@@ -2,8 +2,10 @@ from pydub import AudioSegment
 import ffmpeg
 
 ls=['%Audio1%','%Audio2%','%Audio3%']
+count=0
 
 for index in range(len(ls)):
+    count=count+1
     if ls[index] != '' and ls[index].endswith('.mp3'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
         aud=AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}")
@@ -14,14 +16,17 @@ for index in range(len(ls)):
         aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
-        
-if '%Audio3%' != None:
-    infiles = ['Audio1.wav', 'Audio2.wav', 'Audio3.wav']
-    outfiles = "C:\\*******\\testing.wav"
-elif '%Audio2%' != None:
-    infiles = ['Audio1.wav', 'Audio2.wav']
-    outfiles = "C:\\*******\\testing.wav"
-else:
-    infiles = ['Audio1.wav']
-    outfiles = "C:\\*******\\testing.wav"
 
+aud1=AudioSegment.from_wav("C:\\*******\\Audio1.wav")
+aud2=AudioSegment.from_wav("C:\\*******\\Audio2.wav")
+aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
+
+if count == 3:
+    combined_sounds=aud1+aud2+aud3
+    combined_sounds.export(f"C:\\*******", format="wav")
+elif count == 2:
+    combined_sounds=aud1+aud2
+    combined_sounds.export(f"C:\\*******", format="wav")
+else:
+    combined_sounds=aud1
+    combined_sounds.export(f"C:\\*******", format="wav")
