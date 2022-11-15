@@ -1,8 +1,13 @@
 from pydub import AudioSegment
 import ffmpeg
+import json
 import os
 
-ls=['%Audio1%','%Audio2%','%Audio3%']
+with open(f'C:\\*******\\ps1Py.json', 'r') as ps1:
+    py=json.load(ps1)
+
+ls=[py['Aud1'],py['Aud2'],py['Aud3']]
+cmpgnName=(py['cmpgnName'])
 count=0
 
 for index in range(len(ls)):
@@ -12,23 +17,24 @@ for index in range(len(ls)):
         aud=AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
+        os.remove(f"C:\\*******\\{ls[index]}")
     elif ls[index] != '' and ls[index].endswith('.wav'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
         aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
         aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
-    os.remove(f"C:\\*******\\{ls[index]}")
+        os.remove(f"C:\\*******\\{ls[index]}")
 
 aud1=AudioSegment.from_wav("C:\\*******\\Audio1.wav")
 aud2=AudioSegment.from_wav("C:\\*******\\Audio2.wav")
 aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
 
 if count == 3:
-    outilfe=aud1+aud2+aud3
-    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outfile=aud1+aud2+aud3
+    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
 elif count == 2:
-    outilfe=aud1+aud2
-    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outfile=aud1+aud2
+    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
 else:
-    outilfe=aud1
-    outilfe.export(f"C:\\*******\\'%campaignName%'.wav", format="wav")
+    outfile=aud1
+    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
