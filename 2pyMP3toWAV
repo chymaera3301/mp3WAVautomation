@@ -1,9 +1,8 @@
 from pydub import AudioSegment
-import ffmpeg
-import json
-import os
+import ffmpeg, json, os
 
-with open(f'C:\\*******\\ps1Py.json', 'r') as ps1:
+jsonPS1 = 'C:\\*******\\ps1Py.json'
+with open(jsonPS1, 'r') as ps1:
     py=json.load(ps1)
 
 ls=[py['Aud1'],py['Aud2'],py['Aud3']]
