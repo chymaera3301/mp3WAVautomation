@@ -9,7 +9,7 @@ Scripts are ran within Power Automate Desktop, process utilizes both Web and Des
 
 PAW = Power Automate Web<br/>
 PAD = Power Automate Desktop<br/>
--Power Automate configuration not available<br/>
--PAD* utilizes Python2 (IronPython 2.7) and Powershell 5, making needed resources unusable<br/>
+>>-Power Automate configuration not available<br/>
+>>-PAD* utilizes Python2 (IronPython 2.7) and Powershell 5, making needed resources unusable<br/>
 <p>Sensative information has been swapped out with *******<br/>
 "%variable%" is used as variables that Power Automate feeds into the Powershell script <br/><p/>
