@@ -1,7 +1,7 @@
-from pydub import AudioSegment
+from pydub import AudioSegment, effects
 import ffmpeg, json, os
 
-jsonPS1 = 'C:\\*******\\ps1Py.json'
+jsonPS1='C:\\*******\\ps1Py.json'
 with open(jsonPS1, 'r') as ps1:
     py=json.load(ps1)
 
@@ -14,13 +14,11 @@ for index in range(len(ls)):
     if ls[index] != '' and ls[index].endswith('.mp3'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
         aud=AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}")
-        aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
         os.remove(f"C:\\*******\\{ls[index]}")
     elif ls[index] != '' and ls[index].endswith('.wav'):
         file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
         aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
-        aud=aud.set_channels(1)
         aud.export(f"C:\\*******\\{file}", format='wav')
         os.remove(f"C:\\*******\\{ls[index]}")
 
@@ -30,10 +28,11 @@ aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
 
 if count == 3:
     outfile=aud1+aud2+aud3
-    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
 elif count == 2:
     outfile=aud1+aud2
-    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
 else:
     outfile=aud1
-    outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
+
+outfile=effects.normalize(outfile)
+outfile=outfile.set_channels(1)
+outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
