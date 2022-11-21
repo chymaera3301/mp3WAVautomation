@@ -10,6 +10,8 @@ $psVersion=(Get-Host).Version.Major
             $process.StartInfo=$processInfo
             $process.Start() | Out-Null
             $process.WaitForExit()
+                $stdout = $process.StandardOutput.ReadToEnd()
+                    Write-Host $stdout
     }else{
         param($Aud1,$Aud2,$Aud3,$cmpgnName,$scrptPath)
             $Aud1="%Audio1%"
@@ -17,7 +19,7 @@ $psVersion=(Get-Host).Version.Major
             $Aud3="%Audio3%"
             $cmpgnName="%campaignName%"
             $scrptPath='C:\*******\'
-
+#Create JSON
         $JSON=[pscustomobject]@{
             Aud1=$Aud1
             Aud2=$Aud2
@@ -25,6 +27,7 @@ $psVersion=(Get-Host).Version.Major
             cmpgnName=$cmpgnName
         }
         $JSON | ConvertTo-Json -Depth 4 | Out-File "C:\*******\ps1Py.json"
-    Set-Location -Path $scrptPath
-        python MP3-WAV.py
+#Launch Python3
+        Set-Location -Path $scrptPath
+            python MP3-WAV.py
 }
