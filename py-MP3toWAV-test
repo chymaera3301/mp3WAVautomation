@@ -1,0 +1,22 @@
+from pydub import AudioSegment, effects
+import ffmpeg, json, os, subprocess
+
+jsonPS1='C:\\Audio\\data\\ps1Py.json'
+with open(jsonPS1, 'r') as ps1:
+    py=json.load(ps1)
+
+audio_files=[py['Aud1']]
+if py['Aud2']:
+    audio_files.append(py['Aud2'])
+if py['Aud3']:
+    audio_files.append(py['Aud3'])
+campaign_name=py['cmpgnName']
+
+for file in audio_files:
+    inpath=f"C:\\Audio\\infiles\\{file}"
+    outpath=f"C:\\Audio\\outfiles\\{os.path.splitext(file)[0]}.wav"
+    subprocess.run(["ffmpeg", "-i", inpath, outpath])
+    os.remove(inpath)
+
+outfile="C:\\Audio\\outfiles\\{}.wav".format(campaign_name)
+subprocess.run(["ffmpeg", "-i", "concat:" + "|".join(output_path for output_path in audio_files), "-af", "volume=2", outfile])
