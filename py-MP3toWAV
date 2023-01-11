@@ -1,38 +1,26 @@
 from pydub import AudioSegment, effects
-import ffmpeg, json, os
+import ffmpeg, json, os, subprocess
 
+#Parse JSON
 jsonPS1='C:\\*******\\ps1Py.json'
 with open(jsonPS1, 'r') as ps1:
     py=json.load(ps1)
 
-ls=[py['Aud1'],py['Aud2'],py['Aud3']]
-cmpgnName=(py['cmpgnName'])
-count=0
+#Assign date to Variables, Aud2 and Aud3 may not always contain data
+audFiles=[py['Aud1']]
+if py['Aud2']:
+    audFiles.append(py['Aud2'])
+if py['Aud3']:
+    audFiles.append(py['Aud3'])
+cmpgnName=py['cmpgnName']
 
-for index in range(len(ls)):
-    count=count+1
-    if ls[index] != '' and ls[index].endswith('.mp3'):
-        file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
-        aud=AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}")
-        aud.export(f"C:\\*******\\{file}", format='wav')
-        os.remove(f"C:\\*******\\{ls[index]}")
-    elif ls[index] != '' and ls[index].endswith('.wav'):
-        file=ls[index].replace(ls[index], f"Audio{index+1}.wav")
-        aud=AudioSegment.from_wav(f"C:\\*******\\{ls[index]}")
-        aud.export(f"C:\\*******\\{file}", format='wav')
-        os.remove(f"C:\\*******\\{ls[index]}")
+#Grab each file provided and convert to WAV and Mono
+for file in audFiles:
+    inPath=f"C:\\*******\\{file}"
+    outPath=f"C:\\*******\\{os.path.splitext(file)[0]}.wav"
+    subprocess.run(["ffmpeg", "-i", inPath, outPath])
+    os.remove(inPath)
 
-aud1=AudioSegment.from_wav("C:\\*******\\Audio1.wav")
-aud2=AudioSegment.from_wav("C:\\*******\\Audio2.wav")
-aud3=AudioSegment.from_wav("C:\\*******\\Audio3.wav")
-
-if count == 3:
-    outfile=aud1+aud2+aud3
-elif count == 2:
-    outfile=aud1+aud2
-else:
-    outfile=aud1
-
-outfile=effects.normalize(outfile)
-outfile=outfile.set_channels(1)
-outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
+#Merge converted files and normalize audio
+outFile="C:\\*******\\{}.wav".format(cmpgnName)
+subprocess.run(["ffmpeg", "-i", "concat:" + "|".join(outPath for outPath in audFiles), "-af", "volume=2", outFile])
