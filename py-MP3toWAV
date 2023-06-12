@@ -2,7 +2,7 @@ from pydub import AudioSegment, effects
 import ffmpeg, json, os
 
 #Parse JSON
-jsonPS1='C:\\*******\\ps1Py.json'
+jsonPS1='C:\\Apps\\Audio\\data\\ps1Py.json'
 with open(jsonPS1, 'r') as ps1:
     py=json.load(ps1)
 
@@ -10,17 +10,18 @@ with open(jsonPS1, 'r') as ps1:
 ls=[py['Aud1'],py['Aud2'],py['Aud3']]
 cmpgnName=(py['cmpgnName'])
 
-#Grab each file provided and convert to WAV and Mono
-auds=[]
+#Grab each file provided and convert to WAV
+auds = []
 for index in range(len(ls)):
-    if ls[index] != '' and ls[index].endswith('.mp3'):
-        auds.append(AudioSegment.from_mp3(f"C:\\*******\\{ls[index]}"))
-        os.remove(f"C:\\*******\\{ls[index]}")
-    elif ls[index] != '' and ls[index].endswith('.wav'):
-        auds.append(AudioSegment.from_wav(f"C:\\*******\\{ls[index]}"))
-        os.remove(f"C:\\*******\\{ls[index]}")
+    if ls[index] != '':
+        aud=AudioSegment.from_file(f"C:\\*******\\infiles\\{ls[index]}", format=ls[index].split('.')[-1])
+        auds.append(aud)
 
-#Merge converted files and normalize audio
-outfile=sum(auds)
+#Convert to Mono and merge converted files and normalize audio
+outfile = sum(auds)
 outfile=outfile.set_channels(1)
-outfile.export(f"C:\\*******\\{cmpgnName}.wav", format="wav")
+outfile.export(f"C:\\*******\\outfiles\\{cmpgnName}.wav", format="wav")
+
+#Remove files
+os.remove(f"C:\\*******\\infiles\\*.mp3")
+os.remove(f"C:\\*******\\infiles\\*.wav")
